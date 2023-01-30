@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-const express = require("express");
+import express from "express";
 const app = express();
 const port = 9000;
 
@@ -11,5 +11,5 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
-  console.log(`server is listening at localhost:${process.env.PORT}`);
+  console.log(`server is listening at localhost:${port}`);
 });
