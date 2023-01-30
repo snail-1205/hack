@@ -1,19 +1,21 @@
-import { Request, Response } from "express";
+import { Server } from "socket.io";
 
-import express from "express";
-const app = express();
-const port = 9000;
+const io = new Server();
 
-app.get("/", (req: Request, res: Response) => {
-  res.json({
-    success: true,
+io.on("connection", (socket) => {
+  console.log(`socket ${socket.id} connected`);
+
+  // send an event to the client
+  socket.emit("foo", "bar");
+
+  socket.on("foobar", () => {
+    // an event was received from the client
+  });
+
+  // upon disconnection
+  socket.on("disconnect", (reason) => {
+    console.log(`socket ${socket.id} disconnected due to ${reason}`);
   });
 });
 
-app.on("data", (data) => {
-  console.log(data);
-});
-
-app.listen(port, () => {
-  console.log(`server is listening at localhost:${port}`);
-});
+io.listen(9000);
