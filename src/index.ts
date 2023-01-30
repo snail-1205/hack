@@ -10,6 +10,10 @@ app.get("/", (req: Request, res: Response) => {
   });
 });
 
+app.on("data", (data) => {
+  console.log(data);
+});
+
 app.listen(port, () => {
   console.log(`server is listening at localhost:${port}`);
 });
