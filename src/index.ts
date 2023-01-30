@@ -1,21 +1,15 @@
-import { Server } from "socket.io";
+import { Request, Response } from "express";
 
-const io = new Server();
+const express = require("express");
+const app = express();
+const port = 9000;
 
-io.on("connection", (socket) => {
-  console.log(`socket ${socket.id} connected`);
-
-  // send an event to the client
-  socket.emit("foo", "bar");
-
-  socket.on("message", (msg) => {
-    console.log(JSON.stringify(msg, null, 2));
-  });
-
-  // upon disconnection
-  socket.on("disconnect", (reason) => {
-    console.log(`socket ${socket.id} disconnected due to ${reason}`);
+app.get("/", (req: Request, res: Response) => {
+  res.json({
+    success: true,
   });
 });
 
-io.listen(9000);
+app.listen(port, () => {
+  console.log(`server is listening at localhost:${process.env.PORT}`);
+});
